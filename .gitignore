@@ -1,0 +1,7 @@
+# Build outputs from `nixos-rebuild build` / `nix build`
+result
+result-*
+
+# Editor / OS cruft
+*.swp
+.direnv/
