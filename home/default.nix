@@ -8,6 +8,7 @@
     ./lock.nix
     ./wallpaper.nix
     ./packages.nix
+    ./vscodium.nix
   ];
 
   home.username = "jakap42";

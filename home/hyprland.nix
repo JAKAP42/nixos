@@ -29,8 +29,8 @@ in
       -- Look, feel, input, layout
       hl.config({
           general = {
-              gaps_in     = 5,
-              gaps_out    = 10,
+              gaps_in     = 1,
+              gaps_out    = 2,
               border_size = 2,
               layout      = "dwindle",
           },
@@ -70,8 +70,8 @@ in
       hl.bind(mainMod .. " + space",  hl.dsp.exec_cmd(menu))
       hl.bind(mainMod .. " + Q",      hl.dsp.window.close())
       hl.bind(mainMod .. " + T",      hl.dsp.window.float({ action = "toggle" }))
-      hl.bind(mainMod .. " + F",      hl.dsp.exec_cmd("hyprctl dispatch fullscreen"))
-      hl.bind(mainMod .. " + SHIFT + M", hl.dsp.exec_cmd("hyprctl dispatch exit"))
+      hl.bind(mainMod .. " + F",      hl.dsp.window.fullscreen())
+      hl.bind(mainMod .. " + SHIFT + M", hl.dsp.exit())
       hl.bind(mainMod .. " + escape", hl.dsp.exec_cmd("hyprlock"))
       hl.bind(mainMod .. " + V",      hl.dsp.exec_cmd("cliphist list | rofi -dmenu -p clipboard | cliphist decode | wl-copy"))
       hl.bind(mainMod .. " + SHIFT + S", hl.dsp.exec_cmd("grim -g \"$(slurp)\" - | satty --filename -"))
@@ -87,16 +87,16 @@ in
       hl.bind(mainMod .. " + L", hl.dsp.focus({ direction = "right" }))
 
       -- Move / swap the focused window (SUPER + SHIFT + arrows)
-      hl.bind(mainMod .. " + SHIFT + left",  hl.dsp.exec_cmd("hyprctl dispatch movewindow l"))
-      hl.bind(mainMod .. " + SHIFT + right", hl.dsp.exec_cmd("hyprctl dispatch movewindow r"))
-      hl.bind(mainMod .. " + SHIFT + up",    hl.dsp.exec_cmd("hyprctl dispatch movewindow u"))
-      hl.bind(mainMod .. " + SHIFT + down",  hl.dsp.exec_cmd("hyprctl dispatch movewindow d"))
+      hl.bind(mainMod .. " + SHIFT + left",  hl.dsp.window.move({ direction = "l" }))
+      hl.bind(mainMod .. " + SHIFT + right", hl.dsp.window.move({ direction = "r" }))
+      hl.bind(mainMod .. " + SHIFT + up",    hl.dsp.window.move({ direction = "u" }))
+      hl.bind(mainMod .. " + SHIFT + down",  hl.dsp.window.move({ direction = "d" }))
 
       -- Resize the focused window (SUPER + CTRL + arrows)
-      hl.bind(mainMod .. " + CTRL + left",  hl.dsp.exec_cmd("hyprctl dispatch resizeactive -40 0"))
-      hl.bind(mainMod .. " + CTRL + right", hl.dsp.exec_cmd("hyprctl dispatch resizeactive 40 0"))
-      hl.bind(mainMod .. " + CTRL + up",    hl.dsp.exec_cmd("hyprctl dispatch resizeactive 0 -40"))
-      hl.bind(mainMod .. " + CTRL + down",  hl.dsp.exec_cmd("hyprctl dispatch resizeactive 0 40"))
+      hl.bind(mainMod .. " + CTRL + left",  hl.dsp.window.resize({ x = -40, y = 0, relative = true }), { repeating = true })
+      hl.bind(mainMod .. " + CTRL + right", hl.dsp.window.resize({ x =  40, y = 0, relative = true }), { repeating = true })
+      hl.bind(mainMod .. " + CTRL + up",    hl.dsp.window.resize({ x = 0, y = -40, relative = true }), { repeating = true })
+      hl.bind(mainMod .. " + CTRL + down",  hl.dsp.window.resize({ x = 0, y =  40, relative = true }), { repeating = true })
 
       -- Quick app launches
       hl.bind(mainMod .. " + B", hl.dsp.exec_cmd("firefox"))
@@ -112,6 +112,10 @@ in
       -- Mouse: drag to move / resize
       hl.bind(mainMod .. " + mouse:272", hl.dsp.window.drag(),   { mouse = true })
       hl.bind(mainMod .. " + mouse:273", hl.dsp.window.resize(), { mouse = true })
+
+      -- Mouse: scroll wheel to switch workspaces (SUPER + scroll)
+      hl.bind(mainMod .. " + mouse_down", hl.dsp.focus({ workspace = "e+1" }))
+      hl.bind(mainMod .. " + mouse_up",   hl.dsp.focus({ workspace = "e-1" }))
 
       -- Media & brightness keys (work while locked)
       hl.bind("XF86AudioRaiseVolume",  hl.dsp.exec_cmd("wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+"), { locked = true, repeating = true })
