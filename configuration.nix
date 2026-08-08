@@ -8,7 +8,16 @@
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
+      ./stylix.nix
     ];
+
+  # --- Hyprland (Wayland tiling WM) -----------------------------------------
+  # Enables the Hyprland session (selectable at the SDDM login screen alongside
+  # Plasma) plus the required Wayland portals. Plasma stays installed as a
+  # fallback: if Hyprland ever misbehaves, just pick "Plasma" at login.
+  programs.hyprland.enable = true;
+  # Sets up the PAM entry so hyprlock can actually unlock the session.
+  programs.hyprlock.enable = true;
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
@@ -49,6 +58,11 @@
   # Enable the KDE Plasma Desktop Environment.
   services.displayManager.sddm.enable = true;
   services.desktopManager.plasma6.enable = true;
+
+  # Log straight into Hyprland by default (no need to hunt for the session
+  # picker). To go back to the old desktop, change this to "plasma" (or
+  # "plasmawayland") and rebuild.
+  services.displayManager.defaultSession = "hyprland";
 
   # Configure keymap in X11
   services.xserver.xkb = {
