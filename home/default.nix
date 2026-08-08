@@ -9,6 +9,8 @@
     ./wallpaper.nix
     ./packages.nix
     ./vscodium.nix
+    ./onedrive.nix
+    ./mega.nix
   ];
 
   home.username = "jakap42";

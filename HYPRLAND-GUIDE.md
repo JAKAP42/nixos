@@ -38,6 +38,7 @@ If you only remember one thing: **`SUPER`+`Space`** opens anything installed.
 |------|--------------|
 | `SUPER` + `1`..`0` | Switch to workspace 1–10 |
 | `SUPER` + `Shift` + `1`..`0` | Send the focused window to that workspace |
+| `SUPER` + scroll wheel | Switch to the next / previous workspace |
 
 Think of workspaces as extra screens: put your browser on 1, terminals on 2, etc.
 
