@@ -35,6 +35,7 @@
           lock
           wallpaper
           packages
+          nwgDrawer
           vscodium
           onenote
           onedrive
