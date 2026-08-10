@@ -9,6 +9,7 @@
     ./wallpaper.nix
     ./packages.nix
     ./vscodium.nix
+    ./onenote.nix
     ./onedrive.nix
     ./mega.nix
   ];

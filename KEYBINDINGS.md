@@ -10,6 +10,7 @@
 | Super + F | Fullscreen toggle |
 | Super + T | Toggle floating |
 | Super + B / E | Firefox / Dolphin |
+| Super + N | OneNote (web app) |
 | Super + arrows *or* H/J/K/L | Move focus |
 | Super + Shift + arrows | Move window |
 | Super + Ctrl + arrows | Resize window |

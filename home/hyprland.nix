@@ -33,6 +33,11 @@ in
               gaps_out    = 2,
               border_size = 2,
               layout      = "dwindle",
+              -- Let the mouse resize windows by dragging their edges/corners
+              -- (the usual desktop behaviour). extend_border_grab_area (default
+              -- 15px) makes the thin 2px border easy to grab.
+              resize_on_border      = true,
+              hover_icon_on_border  = true,
           },
           decoration = {
               rounding = 8,
@@ -101,6 +106,7 @@ in
       -- Quick app launches
       hl.bind(mainMod .. " + B", hl.dsp.exec_cmd("firefox"))
       hl.bind(mainMod .. " + E", hl.dsp.exec_cmd("dolphin"))
+      hl.bind(mainMod .. " + N", hl.dsp.exec_cmd("onenote"))
 
       -- Workspaces: SUPER+[1..0] switch, SUPER+SHIFT+[1..0] move window
       for i = 1, 10 do
