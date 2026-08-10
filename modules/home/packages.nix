@@ -14,6 +14,8 @@
         brightnessctl  # screen brightness keys
         playerctl      # media play/pause/next keys
         pavucontrol    # graphical audio mixer
+        papirus-icon-theme  # app icons shown in the rofi launcher
+        nwg-drawer     # full-screen grid app drawer with large icons
       ];
     };
 }

@@ -4,6 +4,14 @@
     {
       # VSCodium = Visual Studio Code with Microsoft's telemetry/branding stripped
       # out. Fully open source, so no allowUnfree needed (unlike real VS Code).
+
+      # VSCodium's launcher is called `codium`, not `code`. Add a tiny `code`
+      # command that just forwards its arguments to codium, so habits like
+      # `code .` (open the current directory) work.
+      home.packages = [
+        (pkgs.writeShellScriptBin "code" ''exec ${pkgs.vscodium}/bin/codium "$@"'')
+      ];
+
       programs.vscode = {
         enable = true;
         package = pkgs.vscodium;

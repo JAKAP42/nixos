@@ -8,6 +8,14 @@
         enable = true;
         package = pkgs.rofi;
         terminal = "${pkgs.kitty}/bin/kitty";
+
+        # Show each app's real icon next to its name in `rofi -show drun`.
+        # Stylix still owns the colors/theme; these are behaviour settings only.
+        extraConfig = {
+          show-icons = true;
+          icon-theme = "Papirus-Dark";
+          drun-display-format = "{name}";
+        };
       };
     };
 }

@@ -19,7 +19,7 @@
         extraConfig = ''
           local mainMod  = "SUPER"
           local terminal = "kitty"
-          local menu     = "rofi -show drun"
+          local menu     = "nwg-drawer -is 32 -c 4"   -- full-screen big-icon app drawer
 
           -- Monitors: auto-detect (see `hyprctl monitors` to tune later)
           hl.monitor({ output = "", mode = "preferred", position = "auto", scale = "auto" })
