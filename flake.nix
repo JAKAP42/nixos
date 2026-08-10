@@ -1,5 +1,5 @@
 {
-  description = "NixOS configuration for host 'nixos'";
+  description = "NixOS configuration for host 'nixos' (dendritic, flake-parts)";
 
   inputs = {
     # Pinned to the exact nixpkgs revision this machine was already running,
@@ -9,6 +9,15 @@
     #   nixpkgs.url = "github:NixOS/nixpkgs/nixos-26.05";   # latest 26.05 stable
     # then review the flake.lock diff in git before rebuilding.
     nixpkgs.url = "github:NixOS/nixpkgs/445d861c6d31b4af0c79d8d4be2331f762a361d7";
+
+    # flake-parts lets us split the flake into many small "flake modules"
+    # instead of one big outputs function.
+    flake-parts.url = "github:hercules-ci/flake-parts";
+
+    # import-tree auto-discovers and imports every *.nix file under ./modules,
+    # so there are no manual `imports = [ ... ]` lists to maintain (the
+    # "dendritic" pattern).
+    import-tree.url = "github:vic/import-tree";
 
     # Home Manager manages all your per-user dotfiles declaratively.
     # Tracks the 26.05 release and reuses the pinned nixpkgs above.
@@ -24,28 +33,8 @@
     };
   };
 
-  outputs = { self, nixpkgs, home-manager, stylix, ... }@inputs: {
-    nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
-      system = "x86_64-linux";
-      specialArgs = { inherit inputs; };
-      modules = [
-        ./configuration.nix
-        # Enable flakes + the new `nix` CLI permanently on the system.
-        { nix.settings.experimental-features = [ "nix-command" "flakes" ]; }
-
-        # System-wide theming.
-        stylix.nixosModules.stylix
-
-        # Home Manager as a NixOS module: your user config lives in ./home.
-        home-manager.nixosModules.home-manager
-        {
-          home-manager.useGlobalPkgs = true;
-          home-manager.useUserPackages = true;
-          # If HM would overwrite an existing dotfile, back it up instead of failing.
-          home-manager.backupFileExtension = "hm-bak";
-          home-manager.users.jakap42 = import ./home;
-        }
-      ];
-    };
-  };
+  # The whole flake is assembled from the tree of modules under ./modules.
+  outputs =
+    inputs:
+    inputs.flake-parts.lib.mkFlake { inherit inputs; } (inputs.import-tree [ ./modules ]);
 }
