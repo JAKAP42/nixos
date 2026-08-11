@@ -39,7 +39,7 @@
                   -- teal/green. Active window gets a soft midnight->dusk gradient;
                   -- unfocused windows fade to a dim navy.
                   col = {
-                      active_border   = { colors = {"rgba(24344dff)", "rgba(3d5a80ff)"}, angle = 45 },
+                      active_border   = { colors = {"rgba(000000ff)", "rgba(000000aa)"}, angle = 45 },
                       inactive_border = "rgba(1b2838aa)",
                   },
                   -- Let the mouse resize windows by dragging their edges/corners

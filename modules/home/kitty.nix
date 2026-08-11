@@ -25,8 +25,8 @@
           cursor_blink_interval = 1;
           cursor_stop_blinking_after = 15;
           cursor_trail = 1;
-    
-
+          scrollbar_handle_color = "#000000";
+          scrollbar_track_color = "rgba(00000000)";
           # Generous scrollback; silence the audio bell.
           scrollback_lines = 10000;
           enable_audio_bell = false;
