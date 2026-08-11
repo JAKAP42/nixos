@@ -10,8 +10,6 @@
       home.stateVersion = userconf.stateVersion;
 
       programs.home-manager.enable = true;
-
-      # Terminal — enabled via the module (not just the package) so Stylix themes it.
-      programs.kitty.enable = true;
+      # Terminal (kitty) now lives in its own module: modules/home/kitty.nix.
     };
 }

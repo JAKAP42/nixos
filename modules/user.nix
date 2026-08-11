@@ -31,6 +31,7 @@
           hyprland
           waybar
           rofi
+          kitty
           mako
           lock
           wallpaper
