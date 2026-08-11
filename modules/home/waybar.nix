@@ -2,8 +2,11 @@
   flake.homeModules.waybar =
     { ... }:
     {
-      # Colors and fonts come from Stylix's waybar target automatically, so this
-      # only defines the layout and module content.
+      # Neutral translucent-black "floating bubble" bar. We turn OFF Stylix's
+      # waybar target so it doesn't fight our custom CSS below; the colors here
+      # are deliberately theme-independent (blackish + a little transparency).
+      stylix.targets.waybar.enable = false;
+
       programs.waybar = {
         enable = true;
         # Launched from the Hyprland config instead (systemd wiring was unreliable).
@@ -12,7 +15,12 @@
           layer = "top";
           position = "top";
           height = 36;
-          spacing = 6;
+          spacing = 4;
+          # Pull the whole bar in from the screen edges a little; combined with the
+          # transparent window background this creates the detached, floating look.
+          margin-top = 6;
+          margin-left = 8;
+          margin-right = 8;
 
           modules-left = [ "hyprland/workspaces" "hyprland/window" ];
           modules-center = [ "clock" ];
@@ -70,6 +78,64 @@
 
           tray.spacing = 8;
         };
+
+        # Each module group is drawn as its own rounded, semi-transparent black
+        # pill floating over the wallpaper. Text is a soft off-white so it reads
+        # over any background. No Stylix accent colors here, on purpose.
+        style = ''
+          * {
+            font-family: "JetBrainsMono Nerd Font", "Noto Sans", sans-serif;
+            font-size: 13px;
+            border: none;
+            min-height: 0;
+          }
+
+          /* The bar itself is invisible; only the pills below are drawn. */
+          window#waybar {
+            background: transparent;
+          }
+
+          /* The floating translucent-black pills. */
+          #workspaces,
+          #clock,
+          #pulseaudio,
+          #network,
+          #battery,
+          #tray {
+            background-color: rgba(0, 0, 0, 0.40);
+            color: #eaeaea;
+            padding: 2px 12px;
+            margin: 4px 4px;
+            border-radius: 14px;
+          }
+
+          /* The window title floats without its own pill so it stays subtle. */
+          #window {
+            color: #eaeaea;
+            padding: 0 10px;
+            margin: 4px 4px;
+          }
+
+          /* Workspace numbers live inside the workspaces pill. */
+          #workspaces button {
+            color: #bcbcbc;
+            padding: 0 6px;
+            border-radius: 10px;
+          }
+          #workspaces button.active {
+            background-color: rgba(255, 255, 255, 0.18);
+            color: #ffffff;
+          }
+          #workspaces button:hover {
+            background-color: rgba(255, 255, 255, 0.10);
+            color: #ffffff;
+          }
+
+          /* Only shout in color when the battery is actually critical. */
+          #battery.critical:not(.charging) {
+            color: #ff6b6b;
+          }
+        '';
       };
     };
 }

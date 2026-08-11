@@ -35,6 +35,13 @@
                   gaps_out    = 2,
                   border_size = 2,
                   layout      = "dwindle",
+                  -- Cosy dark blue borders instead of Hyprland's default light
+                  -- teal/green. Active window gets a soft midnight->dusk gradient;
+                  -- unfocused windows fade to a dim navy.
+                  col = {
+                      active_border   = { colors = {"rgba(24344dff)", "rgba(3d5a80ff)"}, angle = 45 },
+                      inactive_border = "rgba(1b2838aa)",
+                  },
                   -- Let the mouse resize windows by dragging their edges/corners
                   -- (the usual desktop behaviour). extend_border_grab_area (default
                   -- 15px) makes the thin 2px border easy to grab.
