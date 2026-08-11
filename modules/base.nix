@@ -43,6 +43,12 @@
       environment.systemPackages = with pkgs; [
         claude-code
         git
+
+        # C/C++ toolchain: `gcc`, `g++`, `cc`, plus common build tools.
+        gcc
+        gnumake
+        cmake
+        pkg-config
       ];
 
       # This value determines the NixOS release from which the default settings
