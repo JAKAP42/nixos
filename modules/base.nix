@@ -44,6 +44,12 @@
         claude-code
         git
 
+        # Archive tools: unzip (extract .zip), zip (create .zip),
+        # p7zip (`7z`, handles many other formats both ways).
+        unzip
+        zip
+        p7zip
+
         # C/C++ toolchain: `gcc`, `g++`, `cc`, plus common build tools.
         gcc
         gnumake
