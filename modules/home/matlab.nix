@@ -44,7 +44,7 @@
 
       # `matlab-install-shell`: an interactive shell inside the SAME FHS sandbox,
       # used once per machine to run the graphical MATLAB installer (./install).
-      # See ~/Documents/matlab-nixos-setup.md for the full procedure.
+      # See ~/nixos/docs/matlab.md for the full procedure.
       matlab-install-shell = pkgs.buildFHSEnv {
         name = "matlab-install-shell";
         inherit targetPkgs;
