@@ -41,6 +41,7 @@
           onenote
           onedrive
           mega
+          matlab
         ];
       };
     };

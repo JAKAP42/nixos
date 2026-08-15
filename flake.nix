@@ -31,6 +31,15 @@
       url = "github:nix-community/stylix/release-26.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    # nix-matlab provides the FHS dependency list (targetPkgs) that non-Nix
+    # binaries like MATLAB need. Archived upstream but still evaluates fine.
+    # MATLAB itself is installed manually into ~/matlab (multi-GB, not in Nix);
+    # this only builds the sandbox that lets it run. See modules/home/matlab.nix.
+    nix-matlab = {
+      url = "gitlab:doronbehar/nix-matlab";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   # The whole flake is assembled from the tree of modules under ./modules.
