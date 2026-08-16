@@ -8,7 +8,7 @@
 
       # Transparency goes through Stylix's own knob (0 = fully see-through,
       # 1 = solid) so it doesn't clash with the config Stylix generates.
-      stylix.opacity.terminal = 0.85;
+      stylix.opacity.terminal = 0.5;
 
       programs.kitty = {
         enable = true;

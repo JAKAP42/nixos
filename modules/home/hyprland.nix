@@ -19,7 +19,7 @@
         extraConfig = ''
           local mainMod  = "SUPER"
           local terminal = "kitty"
-          local menu     = "nwg-drawer -is 32 -c 4"   -- full-screen big-icon app drawer
+          local menu     = "nwg-drawer -is 32 -c 6"   -- full-screen big-icon app drawer
 
           -- Monitors: auto-detect (see `hyprctl monitors` to tune later)
           hl.monitor({ output = "", mode = "preferred", position = "auto", scale = "auto" })
@@ -39,8 +39,8 @@
                   -- teal/green. Active window gets a soft midnight->dusk gradient;
                   -- unfocused windows fade to a dim navy.
                   col = {
-                      active_border   = { colors = {"rgba(000000ff)", "rgba(000000aa)"}, angle = 45 },
-                      inactive_border = "rgba(1b2838aa)",
+                      active_border   = { colors = {"rgba(40E0D0ff)", "rgba(40E0D0aa)"}, angle = 45 },
+                      inactive_border = { colors = {"rgba(000000ff)", "rgba(000000aa)"}, angle = 45 },
                   },
                   -- Let the mouse resize windows by dragging their edges/corners
                   -- (the usual desktop behaviour). extend_border_grab_area (default

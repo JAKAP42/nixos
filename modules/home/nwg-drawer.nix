@@ -15,7 +15,7 @@
            the alpha (last number, 0=clear .. 1=solid) lets your desktop show
            through so it reads as icons floating over the screen. */
         window {
-            background-color: rgba(30, 30, 46, 0.65);
+            background-color: rgba(0, 0, 0, 0.8);
             color: #cdd6f4;
         }
 
