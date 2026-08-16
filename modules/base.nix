@@ -15,6 +15,13 @@
 
       networking.hostName = userconf.host;
       networking.networkmanager.enable = true;
+      # Periodic connectivity probe so NetworkManager (and the nm-applet tray
+      # agent) can detect captive portals — the "log in on a webpage" networks —
+      # and prompt you to authenticate instead of silently sitting "connected".
+      networking.networkmanager.settings.connectivity = {
+        uri = "http://nmcheck.gnome.org/check_network_status.txt";
+        interval = 300;
+      };
 
       time.timeZone = "Europe/Oslo";
       time.hardwareClockInLocalTime = true;

@@ -75,6 +75,10 @@
               hl.exec_cmd("waypaper --restore")
               hl.exec_cmd("waybar")
               hl.exec_cmd("mako")
+              -- NetworkManager GUI agent. Its tray icon (shown in waybar's tray)
+              -- lists all nearby networks and pops proper dialogs: full enterprise
+              -- form for eduroam, captive-portal login prompts, hidden SSIDs, VPNs.
+              hl.exec_cmd("nm-applet --indicator")
               hl.exec_cmd("wl-paste --type text --watch cliphist store")
               hl.exec_cmd("wl-paste --type image --watch cliphist store")
           end)

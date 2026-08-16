@@ -67,6 +67,9 @@
             format-ethernet = "  wired";
             format-disconnected = "  offline";
             tooltip-format = "{ifname}: {ipaddr}";
+            # Quick connect/scan lives on the nm-applet tray icon next to this pill;
+            # clicking the pill itself opens the full connection settings GUI.
+            on-click = "nm-connection-editor";
           };
 
           pulseaudio = {

@@ -14,6 +14,7 @@
         brightnessctl  # screen brightness keys
         playerctl      # media play/pause/next keys
         pavucontrol    # graphical audio mixer
+        networkmanagerapplet  # nm-applet tray agent + nm-connection-editor GUI
         papirus-icon-theme  # app icons shown in the rofi launcher
         nwg-drawer     # full-screen grid app drawer with large icons
         xournalpp      # PDF annotation / handwriting notes editor
