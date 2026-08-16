@@ -16,6 +16,7 @@
         pavucontrol    # graphical audio mixer
         papirus-icon-theme  # app icons shown in the rofi launcher
         nwg-drawer     # full-screen grid app drawer with large icons
+        xournalpp      # PDF annotation / handwriting notes editor
       ];
     };
 }
