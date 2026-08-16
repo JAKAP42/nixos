@@ -17,6 +17,11 @@
         papirus-icon-theme  # app icons shown in the rofi launcher
         nwg-drawer     # full-screen grid app drawer with large icons
         xournalpp      # PDF annotation / handwriting notes editor
+
+        # Python 3 interpreter. To bundle libraries (numpy, requests, …) use
+        # (python3.withPackages (ps: with ps; [ numpy requests ])) instead of
+        # `pip install` — pip's global installs don't work on NixOS.
+        python3
       ];
     };
 }
