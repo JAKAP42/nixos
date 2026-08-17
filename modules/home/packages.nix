@@ -18,6 +18,8 @@
         papirus-icon-theme  # app icons shown in the rofi launcher
         nwg-drawer     # full-screen grid app drawer with large icons
         xournalpp      # PDF annotation / handwriting notes editor
+        gimp           # image editing (photos, memes, adding text)
+        libresprite    # pixel art / sprite editor for game art
 
         # Python 3 interpreter. Add liberaries in brackets!
         (python3.withPackages (ps: with ps; [ numpy requests matplotlib ]))
