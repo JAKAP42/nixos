@@ -8,7 +8,7 @@
     # To upgrade later: change this to a branch and run `nix flake update`, e.g.
     #   nixpkgs.url = "github:NixOS/nixpkgs/nixos-26.05";   # latest 26.05 stable
     # then review the flake.lock diff in git before rebuilding.
-    nixpkgs.url = "github:NixOS/nixpkgs/445d861c6d31b4af0c79d8d4be2331f762a361d7";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-26.05";
 
     # flake-parts lets us split the flake into many small "flake modules"
     # instead of one big outputs function.
