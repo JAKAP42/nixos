@@ -34,7 +34,7 @@
 
           clock = {
             # %V = ISO week number of the year. Shown as "v.32" (v = vecka/week).
-            format = "{:%a %d %b  v.%V  %H:%M}";
+            format = "{:%a %d %b  week.%V  %H:%M}";
             # The calendar shows as a tooltip when you hover the clock.
             tooltip-format = "<tt>{calendar}</tt>";
             calendar = {
