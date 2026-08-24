@@ -28,6 +28,7 @@
         # Assemble the user's config from all the home modules in the tree.
         users.${userconf.username}.imports = with self.homeModules; [
           core
+          mime
           hyprland
           waybar
           rofi
