@@ -72,7 +72,7 @@
               -- Fallback wallpaper so the screen is never black, then waypaper
               -- restores whatever you last picked in its GUI (overrides the fallback).
               hl.exec_cmd("swaybg -i ${wallpaper} -m fill")
-              hl.exec_cmd("waypaper --restore")
+              hl.exec_cmd("waypaper --random")
               hl.exec_cmd("waybar")
               hl.exec_cmd("mako")
               -- NetworkManager GUI agent. Its tray icon (shown in waybar's tray)
