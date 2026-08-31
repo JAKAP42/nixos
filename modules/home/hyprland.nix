@@ -127,7 +127,10 @@
           hl.bind(mainMod .. " + SHIFT + M", hl.dsp.exit())
           hl.bind(mainMod .. " + escape", hl.dsp.exec_cmd("hyprlock"))
           hl.bind(mainMod .. " + V",      hl.dsp.exec_cmd("cliphist list | rofi -dmenu -p clipboard | cliphist decode | wl-copy"))
-          hl.bind(mainMod .. " + SHIFT + S", hl.dsp.exec_cmd("grim -g \"$(slurp)\" - | satty --filename -"))
+          -- --copy-command: satty's built-in clipboard dies with the window (Wayland
+          -- selections are served by the owning client). wl-copy forks and keeps
+          -- serving the image after satty exits.
+          hl.bind(mainMod .. " + SHIFT + S", hl.dsp.exec_cmd("grim -g \"$(slurp)\" - | satty --filename - --copy-command 'wl-copy --type image/png'"))
 
           -- Focus movement (arrows + vim keys)
           hl.bind(mainMod .. " + left",  hl.dsp.focus({ direction = "left" }))
