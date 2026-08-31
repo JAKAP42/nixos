@@ -1,9 +1,45 @@
 {
   flake.homeModules.hyprland =
-    { pkgs, ... }:
+    { pkgs, lib, ... }:
     let
       # Fallback wallpaper (shown only until waypaper restores your pick).
       wallpaper = "${pkgs.hyprland}/share/hypr/wall1.png";
+
+      # Wallpaper at login. waypaper's picture folder lives on the ~/MEGA rclone
+      # mount, which is still coming up when Hyprland starts. Called too early,
+      # waypaper finds no images, falls back to the saved path (not there yet),
+      # spawns a swaybg that fails to load it, and then kills the fallback
+      # swaybg by PID -- leaving a black desktop. So: show the fallback, wait for
+      # the folder to really contain images, then let waypaper take over. If it
+      # never shows up (mount failed, no network), keep the fallback rather than
+      # letting waypaper kill it.
+      wallpaperStart = pkgs.writeShellScript "wallpaper-start" ''
+        export PATH=${
+          lib.makeBinPath [
+            pkgs.swaybg
+            pkgs.waypaper
+            pkgs.coreutils
+            pkgs.findutils
+            pkgs.gnused
+          ]
+        }:$PATH
+
+        swaybg -i ${wallpaper} -m fill &
+
+        folder=$(sed -n 's/^folder *= *//p' "$HOME/.config/waypaper/config.ini" | head -n1)
+        folder=''${folder/#\~/$HOME}
+        [ -n "$folder" ] || exit 0
+
+        for _ in $(seq 60); do
+          if [ -n "$(find "$folder" -maxdepth 1 -type f \
+                \( -iname '*.jpg' -o -iname '*.jpeg' -o -iname '*.png' \
+                -o -iname '*.gif' -o -iname '*.webp' -o -iname '*.bmp' \) \
+                -print -quit 2>/dev/null)" ]; then
+            exec waypaper --random
+          fi
+          sleep 1
+        done
+      '';
     in
     {
       # Hyprland 0.55 uses a real Lua config (hyprland.lua, the `hl.` API) — the old
@@ -70,9 +106,8 @@
           -- example does. hypridle still starts fine via its systemd user service.
           hl.on("hyprland.start", function()
               -- Fallback wallpaper so the screen is never black, then waypaper
-              -- restores whatever you last picked in its GUI (overrides the fallback).
-              hl.exec_cmd("swaybg -i ${wallpaper} -m fill")
-              hl.exec_cmd("waypaper --random")
+              -- picks a random one once its folder (on the ~/MEGA mount) is ready.
+              hl.exec_cmd("${wallpaperStart}")
               hl.exec_cmd("waybar")
               hl.exec_cmd("mako")
               -- NetworkManager GUI agent. Its tray icon (shown in waybar's tray)
