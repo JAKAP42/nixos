@@ -125,7 +125,7 @@
           hl.bind(mainMod .. " + T",      hl.dsp.window.float({ action = "toggle" }))
           hl.bind(mainMod .. " + F",      hl.dsp.window.fullscreen())
           hl.bind(mainMod .. " + SHIFT + M", hl.dsp.exit())
-          hl.bind(mainMod .. " + escape", hl.dsp.exec_cmd("hyprlock"))
+          hl.bind(mainMod .. " + escape", hl.dsp.exec_cmd("hyprlock-random"))
           hl.bind(mainMod .. " + V",      hl.dsp.exec_cmd("cliphist list | rofi -dmenu -p clipboard | cliphist decode | wl-copy"))
           -- --copy-command: satty's built-in clipboard dies with the window (Wayland
           -- selections are served by the owning client). wl-copy forks and keeps
