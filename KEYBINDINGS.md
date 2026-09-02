@@ -20,6 +20,7 @@
 | Super + drag / right-drag | Move / resize with mouse |
 | Super + V | Clipboard history |
 | Super + Shift + S | Screenshot |
+| Super + W | Random wallpaper (waypaper) |
 | Super + Escape | Lock screen |
 | Super + Shift + M | Exit Hyprland |
 | Volume / brightness / media keys | Work as expected (also while locked) |

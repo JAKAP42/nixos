@@ -127,6 +127,10 @@
           hl.bind(mainMod .. " + SHIFT + M", hl.dsp.exit())
           hl.bind(mainMod .. " + escape", hl.dsp.exec_cmd("hyprlock-random"))
           hl.bind(mainMod .. " + V",      hl.dsp.exec_cmd("cliphist list | rofi -dmenu -p clipboard | cliphist decode | wl-copy"))
+          -- Shuffle the desktop wallpaper. waypaper picks a random image from its
+          -- configured folder, swaps the swaybg process and saves the pick, so it
+          -- survives a relogin (wallpaperStart restores it above).
+          hl.bind(mainMod .. " + W",      hl.dsp.exec_cmd("waypaper --random"))
           -- --copy-command: satty's built-in clipboard dies with the window (Wayland
           -- selections are served by the owning client). wl-copy forks and keeps
           -- serving the image after satty exits.
