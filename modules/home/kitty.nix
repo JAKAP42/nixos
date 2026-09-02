@@ -39,6 +39,14 @@
           tab_bar_style = "powerline";
         };
 
+        # Moving windows/tabs between OS windows. `ask` opens a picker listing the
+        # existing tabs and OS windows (plus "new tab"/"new window"), so the same
+        # binding both splits a window off and fuses it back into another one.
+        keybindings = {
+          "ctrl+shift+d" = "detach_window ask";
+          "ctrl+shift+alt+d" = "detach_tab ask";
+        };
+
         # Stylix paints the background via an `include <theme>` line that it appends
         # to the end of the config, and that theme sets catppuccin's navy base00.
         # `mkAfter` forces this line to land *after* that include so it wins, giving

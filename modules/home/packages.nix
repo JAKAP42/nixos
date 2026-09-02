@@ -22,7 +22,7 @@
         libresprite    # pixel art / sprite editor for game art
 
         # Python 3 interpreter. Add liberaries in brackets!
-        (python3.withPackages (ps: with ps; [ numpy requests matplotlib sounddevice]))
+        (python3.withPackages (ps: with ps; [ numpy requests matplotlib sounddevice scipy]))
       ];
     };
 }
