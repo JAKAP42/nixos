@@ -74,7 +74,8 @@
         };
       };
 
-      # Idle daemon: lock after 5 min, blank screen 30s later, lock before sleep.
+      # Idle daemon: lock after 20 min, blank screen 3 min later, suspend at 30
+      # min. Locks before sleep, so waking always lands on the lock screen.
       services.hypridle = {
         enable = true;
         settings = {
@@ -85,13 +86,17 @@
           };
           listener = [
             {
-              timeout = 1200;                       # 5 minutes
+              timeout = 1200;                      # 20 minutes
               on-timeout = "loginctl lock-session";
             }
             {
-              timeout = 1380;                       # +30s: turn the display off
+              timeout = 1380;                      # +3 min: turn the display off
               on-timeout = "hyprctl dispatch dpms off";
               on-resume = "hyprctl dispatch dpms on";
+            }
+            {
+              timeout = 1800;                      # +7 min: suspend
+              on-timeout = "systemctl suspend";
             }
           ];
         };

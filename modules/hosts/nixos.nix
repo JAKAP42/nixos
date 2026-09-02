@@ -22,6 +22,7 @@ in
       user
       desktop
       hyprland
+      power
       stylix
     ];
   };
