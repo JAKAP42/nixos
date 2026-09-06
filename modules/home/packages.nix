@@ -20,8 +20,9 @@
         xournalpp      # PDF annotation / handwriting notes editor
         gimp           # image editing (photos, memes, adding text)
         libresprite    # pixel art / sprite editor for game art
-	cowsay	
-	fortune	
+        cowsay
+        (fortune.override { withOffensive = true; })  # withOffensive enables the -o flag
+        fastfetch      # system info screenshot tool (neofetch replacement)
 
         # Python 3 interpreter. Add liberaries in brackets!
         (python3.withPackages (ps: with ps; [ numpy requests matplotlib sounddevice scipy]))
