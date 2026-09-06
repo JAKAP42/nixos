@@ -9,7 +9,19 @@
         cowsay
         (fortune.override { withOffensive = true; }) # withOffensive enables the -o flag
         fastfetch # system info screenshot tool (neofetch replacement)
-        
+        ninvaders # space invaders in terminal!!!
+        toipe # typing test
+        lolcat
+        cmatrix
+        (symlinkJoin {
+          name = "asciiquarium-transparent-wrapped";
+          paths = [ asciiquarium-transparent ];
+          nativeBuildInputs = [ makeWrapper ];
+          postBuild = ''
+            wrapProgram $out/bin/asciiquarium --add-flags -t
+          '';
+        })
+        cbonsai
       ];
     };
 }
