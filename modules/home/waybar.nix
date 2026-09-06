@@ -1,7 +1,12 @@
 {
   flake.homeModules.waybar =
-    { ... }:
+    { pkgs, ... }:
     {
+      # Opened by the volume module's click action below. (The network module
+      # clicks `nm-connection-editor`, which ships with networkmanagerapplet in
+      # modules/home/hyprland.nix, alongside the nm-applet it execs at startup.)
+      home.packages = [ pkgs.pavucontrol ];
+
       # Neutral translucent-black "floating bubble" bar. We turn OFF Stylix's
       # waybar target so it doesn't fight our custom CSS below; the colors here
       # are deliberately theme-independent (blackish + a little transparency).

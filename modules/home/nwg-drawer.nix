@@ -1,7 +1,11 @@
 {
   flake.homeModules.nwgDrawer =
-    { ... }:
+    { pkgs, ... }:
     {
+      # The drawer itself. It's launched from the menu keybind in
+      # modules/home/hyprland.nix, which passes the sizing flags.
+      home.packages = [ pkgs.nwg-drawer ];
+
       # nwg-drawer's only styling hook is a GTK CSS file it *reads* at launch
       # (it never writes to it), so a normal read-only home-manager symlink is
       # safe here — unlike waypaper, which needed a writable seed. This keeps the

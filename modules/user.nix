@@ -36,9 +36,11 @@
           mako
           lock
           wallpaper
-          packages
           nwgDrawer
           vscodium
+          apps
+          fun
+          python
           onenote
           onedrive
           mega

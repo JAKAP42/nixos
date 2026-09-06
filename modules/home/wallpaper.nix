@@ -22,6 +22,11 @@
       '';
     in
     {
+      home.packages = [
+        pkgs.swaybg    # the backend that actually paints the wallpaper
+        pkgs.waypaper  # GUI wallpaper picker (browse + click to set)
+      ];
+
       # Browsable wallpaper folder for waypaper. It's a read-only link to the
       # curated set above; to use your own images, save them anywhere and point
       # waypaper's folder chooser at that location instead.

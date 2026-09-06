@@ -190,6 +190,22 @@
         '';
       };
 
+      # Everything the keybinds and exec-once lines above shell out to. These
+      # live here rather than in a shared package list so that the binds and the
+      # binaries they need can never drift apart.
+      home.packages = with pkgs; [
+        grim           # screenshot capture
+        slurp          # region selection for screenshots
+        satty          # screenshot annotation editor
+        wl-clipboard   # wl-copy / wl-paste, used by cliphist
+        cliphist       # clipboard history store + picker backend
+        brightnessctl  # screen brightness keys
+        playerctl      # media play/pause/next keys
+        # Provides both `nm-applet` (execed above) and `nm-connection-editor`
+        # (opened by waybar's network click action).
+        networkmanagerapplet
+      ];
+
       # Stylix's hyprland target would inject color settings through the same buggy
       # settings->Lua path, so disable it; borders use Hyprland's defaults.
       stylix.targets.hyprland.enable = false;
