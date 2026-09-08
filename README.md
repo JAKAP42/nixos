@@ -10,6 +10,9 @@ sudo nixos-rebuild switch --flake ~/nixos#nixos
 
 (`nixos` after the `#` is the hostname / the `nixosConfigurations.<name>` key in `flake.nix`.)
 
+Shortcut: `rebuild` (also `rebuild-boot` / `rebuild-test`). Defined as a shell
+alias in `modules/home/shell.nix` — add more aliases there.
+
 ## Upgrade nixpkgs
 
 Point `nixpkgs.url` in `flake.nix` at a branch (e.g. `github:NixOS/nixpkgs/nixos-26.05`), then:
