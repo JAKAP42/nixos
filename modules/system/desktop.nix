@@ -36,6 +36,23 @@
       };
 
       # Install firefox.
-      programs.firefox.enable = true;
+      programs.firefox = {
+        enable = true;
+
+        # uBlock Origin, installed declaratively via Firefox's enterprise policy
+        # system. Firefox on Chromium-based Manifest V3 is why we bother: Chrome
+        # only allows the crippled "uBO Lite", while Firefox still runs the full
+        # extension.
+        #
+        # installation_mode is "normal_installed" rather than "force_installed"
+        # on purpose -- force_installed would pin the extension so it cannot be
+        # disabled, which breaks the ability to switch it off for a single site.
+        policies.ExtensionSettings = {
+          "uBlock0@raymondhill.net" = {
+            install_url = "https://addons.mozilla.org/firefox/downloads/latest/ublock-origin/latest.xpi";
+            installation_mode = "normal_installed";
+          };
+        };
+      };
     };
 }
