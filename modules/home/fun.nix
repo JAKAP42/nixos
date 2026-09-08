@@ -9,7 +9,14 @@
         cowsay
         (fortune.override { withOffensive = true; }) # withOffensive enables the -o flag
         fastfetch # system info screenshot tool (neofetch replacement)
-        ninvaders # space invaders in terminal!!!
+
+        (ninvaders.overrideAttrs (old: {
+          postPatch = (old.postPatch or "") + ''
+            substituteInPlace view.c \
+              --replace-fail "start_color();" "start_color(); use_default_colors();" \
+              --replace-fail "COLOR_BLACK" "-1"
+          '';
+        }))
         toipe # typing test
         lolcat
         cmatrix
@@ -22,6 +29,8 @@
           '';
         })
         cbonsai
+        figlet
+        sl
       ];
     };
 }
