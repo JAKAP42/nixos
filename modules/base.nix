@@ -22,6 +22,16 @@
         uri = "http://nmcheck.gnome.org/check_network_status.txt";
         interval = 300;
       };
+      # NTNU's VPN (vpn.ntnu.no) speaks Cisco AnyConnect. openconnect is the
+      # open-source client for that protocol; this plugin exposes it to
+      # NetworkManager so the tunnel becomes an ordinary on/off entry in
+      # nm-connection-editor and the waybar network menu, instead of a
+      # terminal session you have to keep alive.
+      #
+      # Needed off-campus only: on eduroam at Gløshaugen you are already inside
+      # NTNU's network. Elsewhere it is what gets you past the IP restriction on
+      # sites like algdat.idi.ntnu.no.
+      networking.networkmanager.plugins = with pkgs; [ networkmanager-openconnect ];
 
       time.timeZone = "Europe/Oslo";
       time.hardwareClockInLocalTime = true;
@@ -56,6 +66,11 @@
         unzip
         zip
         p7zip
+
+        # The openconnect CLI, for setting up / debugging the NTNU VPN by hand
+        # when the NetworkManager dialog is being unhelpful. See the plugin
+        # comment up by networking.networkmanager for what this is for.
+        openconnect
 
         # C/C++ toolchain: `gcc`, `g++`, `cc`, plus common build tools.
         gcc
