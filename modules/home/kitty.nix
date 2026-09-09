@@ -13,7 +13,7 @@
       # back on exit (see modules/home/neovim.nix), because code at 0.5 loses
       # its comments -- they sit at base03, a dark grey -- against the
       # wallpaper. Shell output at 0.5 is fine, so it stays here.
-      stylix.opacity.terminal = 0.5;
+      stylix.opacity.terminal = 0.7;
 
       programs.kitty = {
         enable = true;
