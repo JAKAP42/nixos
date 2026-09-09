@@ -26,6 +26,25 @@
       # Enable CUPS to print documents.
       services.printing.enable = true;
 
+      # Bluetooth. `hardware.bluetooth` is just the BlueZ daemon -- it gives you
+      # `bluetoothctl` on the command line and nothing else; the GUI half is
+      # blueman below.
+      hardware.bluetooth = {
+        enable = true;
+        powerOnBoot = true;
+        # Battery reporting for headsets/controllers (the BlueZ Battery1
+        # interface, which waybar's bluetooth pill reads) is still gated behind
+        # BlueZ's experimental flag. Drop this line if a device misbehaves.
+        settings.General.Experimental = true;
+      };
+
+      # The Bluetooth counterpart to nm-applet: `blueman-applet` (tray icon,
+      # execed from modules/home/hyprland.nix) and `blueman-manager` (the full
+      # pair/connect window, opened by waybar's bluetooth pill). This module also
+      # installs the polkit rules that let pairing happen without root, so
+      # installing the package by hand is NOT enough -- keep it as a service.
+      services.blueman.enable = true;
+
       # Enable sound with pipewire.
       services.pulseaudio.enable = false;
       security.rtkit.enable = true;

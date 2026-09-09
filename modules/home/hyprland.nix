@@ -130,6 +130,12 @@
               -- lists all nearby networks and pops proper dialogs: full enterprise
               -- form for eduroam, captive-portal login prompts, hidden SSIDs, VPNs.
               hl.exec_cmd("nm-applet --indicator")
+              -- Bluetooth tray agent. Same deal as nm-applet: it owns the pairing
+              -- dialogs (PIN confirmation prompts, "device wants to connect"), so
+              -- without it running, pairing a new device silently fails. The
+              -- package comes from services.blueman.enable in
+              -- modules/system/desktop.nix, not from home.packages below.
+              hl.exec_cmd("blueman-applet")
               hl.exec_cmd("wl-paste --type text --watch cliphist store")
               hl.exec_cmd("wl-paste --type image --watch cliphist store")
           end)

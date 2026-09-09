@@ -29,7 +29,7 @@
 
           modules-left = [ "hyprland/workspaces" "hyprland/window" ];
           modules-center = [ "clock" ];
-          modules-right = [ "pulseaudio" "network" "battery" "tray" ];
+          modules-right = [ "pulseaudio" "bluetooth" "network" "battery" "tray" ];
 
           "hyprland/workspaces" = {
             format = "{id}";
@@ -65,6 +65,23 @@
             format = "{capacity}% {icon}";
             format-charging = "{capacity}% ";
             format-icons = [ "" "" "" "" "" ];
+          };
+
+          bluetooth = {
+            # No pill text when nothing is connected -- just the icon, so the bar
+            # stays quiet until a device is actually in use.
+            format = "";
+            format-connected = "  {device_alias}";
+            format-connected-battery = "  {device_alias} {device_battery_percentage}%";
+            format-off = "";
+            format-disabled = "";
+            tooltip-format = "{controller_alias} ({status})";
+            tooltip-format-connected = "{device_enumerate}";
+            tooltip-format-enumerate-connected = "{device_alias}";
+            tooltip-format-enumerate-connected-battery = "{device_alias} — {device_battery_percentage}%";
+            # Same split as the network pill: the tray applet handles quick
+            # connects, clicking the pill opens the full pairing manager.
+            on-click = "blueman-manager";
           };
 
           network = {
@@ -107,6 +124,7 @@
           #workspaces,
           #clock,
           #pulseaudio,
+          #bluetooth,
           #network,
           #battery,
           #tray {
