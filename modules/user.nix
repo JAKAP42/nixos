@@ -43,6 +43,7 @@
           fun
           python
           onlyoffice
+          templates
           onenote
           onedrive
           mega
