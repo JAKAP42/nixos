@@ -23,8 +23,8 @@
         defaultApplications = {
           # PDFs open in Okular (ships with the plasma6 fallback session, and
           # declares application/pdf itself so it needs no patching).
-          # Swap for "com.github.xournalpp.xournalpp.desktop" to annotate,
-          # "chromium-browser.desktop" or "firefox.desktop" for a browser.
+          # Swap for "onlyoffice-desktopeditors.desktop" to edit the text, or
+          # "firefox.desktop" for a browser.
           "application/pdf" = [ "okularApplication_pdf.desktop" ];
 
           # Office documents open in ONLYOFFICE (installed from apps.nix). It

@@ -9,7 +9,6 @@
     { pkgs, ... }:
     {
       home.packages = with pkgs; [
-        xournalpp   # PDF annotation / handwriting notes editor
         gimp        # image editing (photos, memes, adding text)
         libresprite # pixel art / sprite editor for game art
       ];
