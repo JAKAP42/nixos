@@ -34,6 +34,7 @@
           waybar
           rofi
           kitty
+          neovim
           mako
           lock
           wallpaper

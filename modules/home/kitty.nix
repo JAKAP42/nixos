@@ -8,6 +8,11 @@
 
       # Transparency goes through Stylix's own knob (0 = fully see-through,
       # 1 = solid) so it doesn't clash with the config Stylix generates.
+      #
+      # This is the *shell* opacity. Neovim raises it while it runs and puts it
+      # back on exit (see modules/home/neovim.nix), because code at 0.5 loses
+      # its comments -- they sit at base03, a dark grey -- against the
+      # wallpaper. Shell output at 0.5 is fine, so it stays here.
       stylix.opacity.terminal = 0.5;
 
       programs.kitty = {
@@ -37,6 +42,19 @@
           # Tidy tab bar if you ever open tabs inside one window.
           tab_bar_edge = "bottom";
           tab_bar_style = "powerline";
+
+          # Let a program running inside kitty change the window's opacity at
+          # runtime; without this, `kitten @ set-background-opacity` is ignored.
+          # Neovim uses it to become more readable while it's open.
+          dynamic_background_opacity = true;
+
+          # Remote control, restricted to a per-instance abstract unix socket.
+          # "socket-only" deliberately rules out the other channel kitty
+          # supports -- control sequences on the tty -- which would otherwise
+          # let anything printing to your terminal, including a remote host you
+          # are ssh'd into, drive this kitty window.
+          allow_remote_control = "socket-only";
+          listen_on = "unix:@kitty-{kitty_pid}";
         };
 
         # Moving windows/tabs between OS windows. `ask` opens a picker listing the
