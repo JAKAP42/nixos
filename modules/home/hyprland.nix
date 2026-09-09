@@ -99,6 +99,22 @@
                   follow_mouse = 1,
                   touchpad = { natural_scroll = true },
               },
+              xwayland = {
+                  -- eDP-1 is 1920x1080 at scale 1.5. By default XWayland apps
+                  -- render at the logical 1280x720 and get upscaled by 1.5,
+                  -- which makes them look blurry / "low resolution". This tells
+                  -- XWayland to render at real pixel density instead.
+                  --
+                  -- The catch: X11 apps then think the screen is an unscaled
+                  -- 1920x1080, so they draw everything ~1/1.5 the expected size
+                  -- until each one is told to scale itself back up. Wayland-
+                  -- native clients (firefox, kitty, the Plasma/Qt6 apps) are
+                  -- completely unaffected -- this only touches XWayland.
+                  --
+                  -- Already handled: ONLYOFFICE, via `uiscaling` in
+                  -- onlyoffice.nix. Watch for it in MATLAB, which is Java/X11.
+                  force_zero_scaling = true,
+              },
           })
 
           -- Autostart. home-manager's systemd wiring for waybar/mako is unreliable

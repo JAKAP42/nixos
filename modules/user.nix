@@ -42,6 +42,7 @@
           apps
           fun
           python
+          onlyoffice
           onenote
           onedrive
           mega
