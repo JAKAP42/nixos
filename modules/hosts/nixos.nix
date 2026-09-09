@@ -21,6 +21,7 @@ in
       base
       user
       desktop
+      sddm
       hyprland
       power
       stylix

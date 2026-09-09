@@ -55,6 +55,12 @@ Tweaks made in KDE's System Settings GUI (`kwinrc`, `kdeglobals`,
 captured here. The Hyprland side *is* fully managed; the KDE fallback session is
 configured by hand. Redo any KDE customizations manually on a new machine.
 
+The one KDE piece that *is* managed is the SDDM login screen: `modules/system/
+sddm.nix` ships a QML theme that copies hyprlock's look (Stylix colours, same
+input field) over a wallpaper picked at random from the waypaper folder at every
+boot. To see a different one without rebooting: `sudo systemctl restart
+display-manager` (this kills the running session, so log out first).
+
 ## Files
 
 - `flake.nix` / `flake.lock` — entry point and pinned dependency versions

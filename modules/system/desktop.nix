@@ -7,7 +7,8 @@
       # Enable the X11 windowing system (also backs the SDDM greeter).
       services.xserver.enable = true;
 
-      # Enable the KDE Plasma Desktop Environment.
+      # Enable the KDE Plasma Desktop Environment. The greeter's looks (theme +
+      # random wallpaper) live in ./sddm.nix.
       services.displayManager.sddm.enable = true;
       services.desktopManager.plasma6.enable = true;
 
