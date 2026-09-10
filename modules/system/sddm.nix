@@ -12,6 +12,12 @@
 #   2. a oneshot unit that runs before the greeter, picks a random image from the
 #      waypaper folder and copies it somewhere the (unprivileged) sddm user can
 #      actually read.
+#
+# To check a change without rebooting, run `sddm --test-mode` (the daemon) and
+# look at it. Running `sddm-greeter-qt6 --test-mode --theme ...` renders the QML
+# too, but it skips the daemon's theme/greeter selection -- so it happily shows
+# a theme that the real greeter would reject and silently replace with the
+# fallback. Ask the daemon, not the greeter.
 {
   flake.nixosModules.sddm =
     {
@@ -251,6 +257,11 @@
         }
       '';
 
+      # QtVersion=6 is not optional: sddm 0.21 ships both a Qt5 and a Qt6
+      # greeter and reads that key to decide which binary to launch. Leave it
+      # out and it goes looking for the Qt5 `sddm-greeter`, which this nixpkgs
+      # sddm does not build -- it then logs "requires missing ... using fallback
+      # theme" and quietly shows the stock greeter instead of this one.
       metadata = pkgs.writeText "metadata.desktop" ''
         [SddmGreeterTheme]
         Name=hyprlock
@@ -260,6 +271,8 @@
         Version=1.0
         License=MIT
         MainScript=Main.qml
+        Theme-Id=hyprlock
+        QtVersion=6
       '';
 
       theme = pkgs.runCommand "sddm-theme-hyprlock" { } ''
