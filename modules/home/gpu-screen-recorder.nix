@@ -92,7 +92,7 @@
           else
               dir="$HOME/Videos"
               mkdir -p "$dir"
-              file="$dir/recording_$(date +%Y-%m-%d_%H-%M-%S).mkv"
+              file="$dir/recording_$(date +%Y-%m-%d_%H-%M-%S).mp4"
 
               # $$ is the PID the recorder will have, because of the exec below.
               printf '%s\n%s\n' "$$" "$file" > "$state"
@@ -112,9 +112,19 @@
               # call audio land in the recording without extra setup.
               # -q/-bm: constant quality rather than constant bitrate, which is
               # the right trade for recording to disk (CBR is for streaming).
-              # mkv survives an unclean exit; mp4 would not.
+              # -c mp4 -ac aac: chosen so recordings can go straight to the
+              # phone. iOS Photos rejects mkv outright — LocalSend drops it in
+              # Files instead — and it can't read opus, which is what GSR
+              # defaults to for mkv and mp4 alike. H.264 + AAC in mp4 is the
+              # combination Photos accepts, and it costs nothing here: the
+              # encoder settings above are unchanged, only the wrapper differs.
+              #
+              # mkv would normally be the safer container, since a plain mp4 is
+              # unplayable if the recorder dies before writing its index. That
+              # doesn't apply to GSR, which writes fragmented mp4 (see its
+              # hybrid_fragmented movflags handling) and stays playable.
               exec gpu-screen-recorder -w screen -f 60 -a default_output \
-                  -q very_high -bm qp -c mkv -o "$file"
+                  -q very_high -bm qp -c mp4 -ac aac -o "$file"
           fi
         '';
       };
