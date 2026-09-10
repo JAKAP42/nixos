@@ -32,6 +32,7 @@
           mime
           hyprland
           waybar
+          gpuScreenRecorder
           rofi
           kitty
           neovim

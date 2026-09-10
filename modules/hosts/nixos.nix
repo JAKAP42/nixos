@@ -26,6 +26,7 @@ in
       power
       stylix
       localsend
+      gpu-screen-recorder
     ];
   };
 }

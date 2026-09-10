@@ -29,7 +29,7 @@
 
           modules-left = [ "hyprland/workspaces" "hyprland/window" ];
           modules-center = [ "clock" ];
-          modules-right = [ "pulseaudio" "bluetooth" "network" "battery" "tray" ];
+          modules-right = [ "custom/gsr" "pulseaudio" "bluetooth" "network" "battery" "tray" ];
 
           "hyprland/workspaces" = {
             format = "{id}";
@@ -101,6 +101,23 @@
             on-click = "pavucontrol";
           };
 
+          # Red REC pill, shown only while GPU Screen Recorder is actually
+          # running (SUPER+ALT+F toggles it). `gsr-waybar` prints an empty text
+          # when idle, which makes waybar hide the module entirely, so the bar
+          # stays quiet the rest of the time — same idea as the bluetooth pill.
+          "custom/gsr" = {
+            exec = "gsr-waybar"; # from modules/home/gpu-screen-recorder.nix
+            return-type = "json";
+            # The keybind signals waybar directly so the pill appears the moment
+            # recording starts; the interval is just a safety net that clears it
+            # if the recorder ever exits on its own. Keep this number in step
+            # with `refreshBar` in modules/home/gpu-screen-recorder.nix.
+            signal = 8;
+            interval = 5;
+            # Clicking the pill stops and saves, for when the keybind isn't handy.
+            on-click = "gsr-toggle";
+          };
+
           tray.spacing = 8;
         };
 
@@ -160,6 +177,24 @@
           /* Only shout in color when the battery is actually critical. */
           #battery.critical:not(.charging) {
             color: #ff6b6b;
+          }
+
+          /* The recording indicator. Styled only in its .recording state, so
+             the idle module draws no pill at all. The slow pulse is there to
+             catch the corner of your eye — a static dot is easy to forget
+             about and end up with an hour-long file. */
+          #custom-gsr.recording {
+            background-color: rgba(0, 0, 0, 0.40);
+            color: #ff5f5f;
+            padding: 2px 12px;
+            margin: 4px 4px;
+            border-radius: 14px;
+            animation: gsr-pulse 2s ease-in-out infinite alternate;
+          }
+
+          @keyframes gsr-pulse {
+            from { color: #ff5f5f; }
+            to   { color: #7a2020; }
           }
         '';
       };

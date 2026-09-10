@@ -157,6 +157,11 @@
           -- selections are served by the owning client). wl-copy forks and keeps
           -- serving the image after satty exits.
           hl.bind(mainMod .. " + SHIFT + S", hl.dsp.exec_cmd("grim -g \"$(slurp)\" - | satty --filename - --copy-command 'wl-copy --type image/png'"))
+          -- Screen recording: one key starts it, the same key stops and saves to
+          -- ~/Videos. A red REC pill appears in waybar while it runs, so the
+          -- state is never ambiguous. `gsr-toggle` comes from
+          -- modules/home/gpu-screen-recorder.nix, not from home.packages below.
+          hl.bind(mainMod .. " + ALT + F", hl.dsp.exec_cmd("gsr-toggle"))
 
           -- Focus movement (arrows + vim keys)
           hl.bind(mainMod .. " + left",  hl.dsp.focus({ direction = "left" }))
