@@ -25,6 +25,7 @@ in
       hyprland
       power
       stylix
+      localsend
     ];
   };
 }
