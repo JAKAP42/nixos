@@ -2,7 +2,7 @@
 # audio, printing, and Firefox. Hyprland itself lives in ./hyprland.nix.
 {
   flake.nixosModules.desktop =
-    { ... }:
+    { pkgs, ... }:
     {
       # Enable the X11 windowing system (also backs the SDDM greeter).
       services.xserver.enable = true;
@@ -44,6 +44,32 @@
       # installs the polkit rules that let pairing happen without root, so
       # installing the package by hand is NOT enough -- keep it as a service.
       services.blueman.enable = true;
+
+      # Secret Service (org.freedesktop.secrets) for the Hyprland session.
+      #
+      # Anything storing a password or key through libsecret -- BlueFerry's
+      # encrypted message/contact store, Seahorse-style tools, many GNOME and
+      # Electron apps -- talks to that bus name. Plasma provides it via KWallet's
+      # `ksecretd` bridge, but the shipped D-Bus service file registers only
+      # `org.kde.secretservicecompat`, and nothing claims the freedesktop name
+      # unless a full Plasma session autostarts it. Under Hyprland nothing does,
+      # so libsecret clients fail with "the desktop keyring is unavailable".
+      #
+      # Registering ksecretd under the freedesktop name makes it *activatable*:
+      # the first client to ask starts it. Deliberately not a Hyprland
+      # exec-once or a systemd user unit, both of which would race against
+      # user services that want a keyring at login (blueferry.service does).
+      services.dbus.packages = [
+        (pkgs.writeTextFile {
+          name = "ksecretd-freedesktop-secrets-activation";
+          destination = "/share/dbus-1/services/org.freedesktop.secrets.service";
+          text = ''
+            [D-BUS Service]
+            Name=org.freedesktop.secrets
+            Exec=${pkgs.kdePackages.kwallet}/bin/ksecretd
+          '';
+        })
+      ];
 
       # Enable sound with pipewire.
       services.pulseaudio.enable = false;
