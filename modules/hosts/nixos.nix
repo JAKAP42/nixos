@@ -26,6 +26,7 @@ in
       power
       stylix
       localsend
+      kdeconnect
       gpu-screen-recorder
     ];
   };

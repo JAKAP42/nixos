@@ -31,6 +31,7 @@
           shell
           mime
           hyprland
+          kdeconnectRemoteInput
           waybar
           gpuScreenRecorder
           rofi

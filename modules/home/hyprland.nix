@@ -159,6 +159,13 @@
               -- package comes from services.blueman.enable in
               -- modules/system/desktop.nix, not from home.packages below.
               hl.exec_cmd("blueman-applet")
+              -- KDE Connect's tray agent. Starts kdeconnectd, which is what the
+              -- phone actually looks for -- without it this machine is simply not
+              -- on the phone's device list. The tray icon is also the only GUI
+              -- entry point under Hyprland (no Plasma system tray to fall back
+              -- on). Package comes from programs.kdeconnect.enable in
+              -- modules/system/kdeconnect.nix, not from home.packages below.
+              hl.exec_cmd("kdeconnect-indicator")
               hl.exec_cmd("wl-paste --type text --watch cliphist store")
               hl.exec_cmd("wl-paste --type image --watch cliphist store")
           end)
