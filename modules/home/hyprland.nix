@@ -117,6 +117,29 @@
               },
           })
 
+          -- Clicking waybar's clock opens `waybar-calendar` (a yad window, from
+          -- modules/home/waybar.nix). Left to itself Hyprland would tile it
+          -- like any other window; these rules turn it into a dropdown hanging
+          -- off the bar instead.
+          --
+          -- The numbers are tied together: 48 clears the bar (margin_top 6 +
+          -- height 36 + its shadow), and the 150 in the x expression is half
+          -- the 300 width, which is what centres it under the clock. Change the
+          -- width and the offset has to follow. An absolute y with a
+          -- monitor-relative x is not a style choice -- mixing a percentage
+          -- into x makes Hyprland's parser drop the y value entirely, whereas
+          -- the monitor_w form here places both exactly.
+          hl.window_rule({
+              name  = "waybar-calendar",
+              match = { title = "^waybar-calendar$" },
+
+              float   = true,
+              size    = "300 240",
+              move    = "monitor_w/2-150 48",
+              -- It appears and disappears on a click; sliding it in reads as lag.
+              no_anim = true,
+          })
+
           -- Autostart. home-manager's systemd wiring for waybar/mako is unreliable
           -- (empty WantedBy), so launch them here directly like Hyprland's own
           -- example does. hypridle still starts fine via its systemd user service.

@@ -1,11 +1,102 @@
 {
   flake.homeModules.waybar =
     { pkgs, ... }:
+    let
+      # The month-at-a-time calendar that clicking the clock opens, with the
+      # arrow buttons GTK's calendar widget draws in its header for stepping
+      # month and year. That header is the whole point of this script.
+      #
+      # waybar's own calendar can only ever be a hover tooltip, and tooltips
+      # are not interactive: you cannot put a button in one. Its navigation is
+      # therefore scroll-only, which is awkward on a touchpad, and its year
+      # mode renders all twelve months as one tall block that runs off the
+      # bottom of a 720pt-tall screen. A real window sidesteps both.
+      #
+      # yad is a thin wrapper around stock GTK dialogs, so `--calendar` is
+      # literally a GtkCalendar: clickable arrows, keyboard arrows, and week
+      # numbers via --show-weeks (matching the %V in the bar's own format).
+      # Hyprland floats and places the window -- see the `waybar-calendar`
+      # window_rule in modules/home/hyprland.nix, which pins its size to the
+      # 300x240 assumed there.
+      #
+      # Clicking the clock a second time closes it, which needs the script to
+      # know whether one is already open. That question is answered by PID in a
+      # runtime state file rather than by matching on process name, for the
+      # reasons written up at length in modules/home/gpu-screen-recorder.nix:
+      # `pkill -f yad` would take out any other yad dialog on the desktop. The
+      # file is self-healing -- if the window was closed with Escape instead,
+      # the recorded PID stops responding and the next click just opens a fresh
+      # one.
+      calendar = pkgs.writeShellApplication {
+        name = "waybar-calendar";
+        runtimeInputs = with pkgs; [
+          yad
+          coreutils # cat, rm
+        ];
+        text = ''
+          state="''${XDG_RUNTIME_DIR:-/tmp}/waybar-calendar.pid"
+
+          if [ -r "$state" ]; then
+              read -r pid < "$state" || pid=""
+              case "$pid" in "" | *[!0-9]*) pid="" ;; esac
+
+              # Guards against the PID having been recycled by an unrelated
+              # process since we wrote it. This compares /proc/<pid>/exe and
+              # not /proc/<pid>/comm, which is the obvious way to write it and
+              # is wrong: nixpkgs wraps yad, so `exec yad` below lands on
+              # `.yad-wrapped` and that, not "yad", is the name the kernel
+              # stores. Matching on the name therefore never fires, and the
+              # failure is silent and confusing -- clicking the clock a second
+              # time opens another calendar on top of the first instead of
+              # closing it. The store path has no such ambiguity.
+              exe=""
+              if [ -n "$pid" ]; then
+                  exe=$(readlink -f /proc/"$pid"/exe 2> /dev/null || true)
+              fi
+
+              case "$exe" in
+                  ${pkgs.yad}/*)
+                      kill "$pid"
+                      rm -f "$state"
+                      exit 0
+                      ;;
+              esac
+              rm -f "$state"
+          fi
+
+          # $$ is the PID yad will have, because of the exec below.
+          printf '%s\n' "$$" > "$state"
+
+          # GTK reads the first day of the week from LC_TIME, and the session's
+          # en_US would start it on Sunday -- which shifts every week number in
+          # the column below one day off the ISO %V the bar prints above it.
+          # en_GB is Monday-first and ISO-numbered with English month names, so
+          # this is the whole change; see i18n.supportedLocales in
+          # modules/base.nix, which is what generates it.
+          export LC_TIME=en_GB.UTF-8
+
+          # --no-buttons because there is nothing to confirm; this is a thing to
+          # look at, not a date picker. Escape closes it either way.
+          exec yad --calendar \
+              --title=waybar-calendar \
+              --show-weeks \
+              --undecorated \
+              --no-buttons \
+              --skip-taskbar \
+              --borders=0 \
+              --width=300 --height=240
+        '';
+      };
+    in
     {
-      # Opened by the volume module's click action below. (The network module
-      # clicks `nm-connection-editor`, which ships with networkmanagerapplet in
+      # pavucontrol is opened by the volume module's click action below, and
+      # waybar-calendar by the clock's. (The network module clicks
+      # `nm-connection-editor`, which ships with networkmanagerapplet in
       # modules/home/hyprland.nix, alongside the nm-applet it execs at startup.)
-      home.packages = [ pkgs.pavucontrol ];
+      home.packages = [
+        pkgs.pavucontrol
+        calendar
+      ];
 
       # Neutral translucent-black "floating bubble" bar. We turn OFF Stylix's
       # waybar target so it doesn't fight our custom CSS below; the colors here
@@ -40,25 +131,16 @@
           clock = {
             # %V = ISO week number of the year. Shown as "v.32" (v = vecka/week).
             format = "{:%a %d %b  week.%V  %H:%M}";
-            # The calendar shows as a tooltip when you hover the clock.
-            tooltip-format = "<tt>{calendar}</tt>";
-            calendar = {
-              mode = "month";
-              # Show week numbers down the left side of the calendar too.
-              weeks-pos = "left";
-              on-scroll = 1;
-              format = {
-                # Highlight today; keeps Stylix's theme colors otherwise.
-                today = "<b><u>{}</u></b>";
-                weeks = "<b>v{}</b>";
-              };
-            };
-            actions = {
-              # Right-click toggles month <-> year view; scroll changes months.
-              on-click-right = "mode";
-              on-scroll-up = "shift_up";
-              on-scroll-down = "shift_down";
-            };
+            # No hover tooltip. waybar's built-in calendar would render one
+            # here, but the click action below opens a better one, and having
+            # both means the tooltip pops up over the window you just opened
+            # every time the pointer crosses the clock. There is only one
+            # calendar now, and it is the one you ask for.
+            tooltip = false;
+            # Opens the clickable month-by-month calendar; clicking again closes
+            # it. Not an entry under `actions` -- that map takes waybar's own
+            # action names, this is a command to run.
+            on-click = "waybar-calendar";
           };
 
           battery = {

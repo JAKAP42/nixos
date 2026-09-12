@@ -49,6 +49,22 @@
         LC_TIME = "en_US.UTF-8";
       };
 
+      # Generated but not used as anyone's locale. GTK takes the first day of
+      # the week, and the week numbering that follows from it, out of LC_TIME.
+      # Under en_US that is Sunday, which would put the clock calendar in
+      # modules/home/waybar.nix one day out of step with the ISO week number
+      # (%V) the bar prints directly above it -- the bar would say week 37 while
+      # the calendar labelled the Sunday-started row containing the same day 37
+      # as well, covering a different seven days. en_GB is the nearest locale
+      # that starts weeks on Monday and numbers them the ISO way while leaving
+      # month names in English, so the popup still reads like the bar. Only that
+      # one window opts into it; everything else stays en_US.
+      i18n.supportedLocales = [
+        "C.UTF-8/UTF-8"
+        "en_US.UTF-8/UTF-8"
+        "en_GB.UTF-8/UTF-8"
+      ];
+
       # Console keymap.
       console.keyMap = "no";
 
