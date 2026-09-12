@@ -47,18 +47,18 @@
 
       # Secret Service (org.freedesktop.secrets) for the Hyprland session.
       #
-      # Anything storing a password or key through libsecret -- BlueFerry's
-      # encrypted message/contact store, Seahorse-style tools, many GNOME and
-      # Electron apps -- talks to that bus name. Plasma provides it via KWallet's
-      # `ksecretd` bridge, but the shipped D-Bus service file registers only
-      # `org.kde.secretservicecompat`, and nothing claims the freedesktop name
-      # unless a full Plasma session autostarts it. Under Hyprland nothing does,
-      # so libsecret clients fail with "the desktop keyring is unavailable".
+      # Anything storing a password or key through libsecret -- browsers, many
+      # GNOME and Electron apps, CLI tools that cache tokens -- talks to that
+      # bus name. Plasma provides it via KWallet's `ksecretd` bridge, but the
+      # shipped D-Bus service file registers only `org.kde.secretservicecompat`,
+      # and nothing claims the freedesktop name unless a full Plasma session
+      # autostarts it. Under Hyprland nothing does, so libsecret clients fail
+      # with "the desktop keyring is unavailable".
       #
       # Registering ksecretd under the freedesktop name makes it *activatable*:
-      # the first client to ask starts it. Deliberately not a Hyprland
-      # exec-once or a systemd user unit, both of which would race against
-      # user services that want a keyring at login (blueferry.service does).
+      # the first client to ask starts it, and it costs nothing until then.
+      # Deliberately not a Hyprland exec-once or a systemd user unit, either of
+      # which would race against user services wanting a keyring at login.
       services.dbus.packages = [
         (pkgs.writeTextFile {
           name = "ksecretd-freedesktop-secrets-activation";

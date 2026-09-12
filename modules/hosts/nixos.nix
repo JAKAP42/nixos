@@ -27,7 +27,6 @@ in
       stylix
       localsend
       gpu-screen-recorder
-      blueferry
     ];
   };
 }
