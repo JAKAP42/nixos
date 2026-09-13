@@ -52,6 +52,7 @@
           onedrive
           mega
           matlab
+          torlink
         ];
       };
     };

@@ -32,6 +32,15 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # torlink is a terminal torrent finder. Not in nixpkgs, so it comes from its
+    # own flake. Upstream's package.nix lags the npm releases (it still pins
+    # 1.4.1), so modules/home/torlink.nix overrides it up to the current tag --
+    # see the comment there before touching either side.
+    torlink = {
+      url = "github:baairon/torlink";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     # nix-matlab provides the FHS dependency list (targetPkgs) that non-Nix
     # binaries like MATLAB need. Archived upstream but still evaluates fine.
     # MATLAB itself is installed manually into ~/matlab (multi-GB, not in Nix);
