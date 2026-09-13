@@ -45,6 +45,7 @@
           apps
           fun
           python
+          node
           onlyoffice
           templates
           onenote
