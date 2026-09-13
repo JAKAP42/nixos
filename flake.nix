@@ -41,6 +41,16 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # disko declares disk layout (partitions + filesystems) as data, so a
+    # machine can be partitioned and formatted straight from this flake instead
+    # of a hand-generated hardware-configuration.nix. Only hosts that import the
+    # `disko` nixosModule are affected; the 'nixos' host does not, so it is
+    # untouched. Referenced by modules/system/disko.nix.
+    disko = {
+      url = "github:nix-community/disko";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     # nix-matlab provides the FHS dependency list (targetPkgs) that non-Nix
     # binaries like MATLAB need. Archived upstream but still evaluates fine.
     # MATLAB itself is installed manually into ~/matlab (multi-GB, not in Nix);

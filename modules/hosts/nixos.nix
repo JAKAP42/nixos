@@ -18,6 +18,11 @@ in
       # because it's a plain NixOS module, not a flake-parts module.
       ../../hardware-configuration.nix
 
+      # AMD display-engine debug workaround for this (AMD) laptop. Lived in
+      # base.nix originally, but base is shared with the Intel/NVIDIA
+      # 'home-machine' host where it does not belong, so it is pinned here.
+      { boot.kernelParams = [ "amdgpu.dcdebugmask=0x40000" ]; }
+
       base
       user
       desktop

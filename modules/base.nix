@@ -11,7 +11,6 @@
       boot.loader.systemd-boot.enable = true;
       boot.loader.systemd-boot.configurationLimit = 10;
       boot.loader.efi.canTouchEfiVariables = true;
-      boot.kernelParams = [ "amdgpu.dcdebugmask=0x40000" ];
 
       networking.hostName = userconf.host;
       networking.networkmanager.enable = true;

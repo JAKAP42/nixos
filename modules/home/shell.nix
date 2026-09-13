@@ -13,11 +13,14 @@
 
         shellAliases = {
           # Apply this config -- the command from README.md "Apply changes".
-          rebuild = "sudo nixos-rebuild switch --flake ~/nixos#nixos";
+          # `#$(hostname)` picks the nixosConfiguration matching THIS machine
+          # (nixos on the laptop, home-machine on the desktop), so the same
+          # alias is correct on every host.
+          rebuild = "sudo nixos-rebuild switch --flake ~/nixos#$(hostname)";
           # Same, but only for the next boot (doesn't touch the running system).
-          rebuild-boot = "sudo nixos-rebuild boot --flake ~/nixos#nixos";
+          rebuild-boot = "sudo nixos-rebuild boot --flake ~/nixos#$(hostname)";
           # Build and check without making it the active generation.
-          rebuild-test = "sudo nixos-rebuild test --flake ~/nixos#nixos";
+          rebuild-test = "sudo nixos-rebuild test --flake ~/nixos#$(hostname)";
         };
       };
     };
