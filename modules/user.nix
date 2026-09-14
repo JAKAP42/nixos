@@ -42,6 +42,7 @@
           wallpaper
           nwgDrawer
           vscodium
+          mpv
           apps
           fun
           python

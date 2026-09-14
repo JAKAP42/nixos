@@ -27,6 +27,7 @@ in
       localsend
       kdeconnect
       gpu-screen-recorder
+      protonvpn
 
       # This machine's declarative disk layout + NVIDIA driver.
       disko

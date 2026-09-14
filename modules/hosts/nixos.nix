@@ -33,6 +33,7 @@ in
       localsend
       kdeconnect
       gpu-screen-recorder
+      protonvpn
     ];
   };
 }

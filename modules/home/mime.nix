@@ -18,6 +18,17 @@
         # this is what keeps it offered as a choice for "Open With".
         associations.added = {
           "application/pdf" = [ "firefox.desktop" ];
+
+          # Offer mpv in "Open With" for everything Haruna handles. mpv's own
+          # desktop entry already advertises these types, but listing it here
+          # keeps it in the picker next to Haruna rather than under "Other".
+          #
+          # video/x-flv and video/3gpp are the two common container types
+          # Haruna's desktop entry does NOT advertise, even though libmpv plays
+          # both -- so they are added explicitly to make the default below
+          # legitimate rather than a claim no desktop entry backs up.
+          "video/x-flv" = [ "org.kde.haruna.desktop" "mpv.desktop" ];
+          "video/3gpp" = [ "org.kde.haruna.desktop" "mpv.desktop" ];
         };
 
         defaultApplications = {
@@ -47,6 +58,30 @@
           "application/vnd.openxmlformats-officedocument.presentationml.presentation" = [ "onlyoffice-desktopeditors.desktop" ];
           "application/vnd.openxmlformats-officedocument.presentationml.slideshow" = [ "onlyoffice-desktopeditors.desktop" ];
           "application/vnd.oasis.opendocument.presentation" = [ "onlyoffice-desktopeditors.desktop" ];
+
+          # Video files open in Haruna (the libmpv GUI installed from
+          # modules/home/mpv.nix). `mpv` stays the command-line player and is
+          # offered in "Open With"; swap the lines below to "mpv.desktop" to
+          # make the bare player the default instead.
+          #
+          # These are the *canonical* type names from shared-mime-info -- the
+          # familiar spellings are aliases and must not be listed instead, or
+          # the entry silently matches nothing: .avi resolves to video/vnd.avi
+          # (not video/x-msvideo) and .m4v to video/mp4 (not video/x-m4v).
+          #
+          # Audio is deliberately absent. Haruna advertises audio/* too, but
+          # music is Elisa's job; claiming those types here would hijack it.
+          "video/mp4" = [ "org.kde.haruna.desktop" ];
+          "video/x-matroska" = [ "org.kde.haruna.desktop" ];
+          "video/webm" = [ "org.kde.haruna.desktop" ];
+          "video/quicktime" = [ "org.kde.haruna.desktop" ];
+          "video/vnd.avi" = [ "org.kde.haruna.desktop" ];
+          "video/mpeg" = [ "org.kde.haruna.desktop" ];
+          "video/ogg" = [ "org.kde.haruna.desktop" ];
+          "video/mp2t" = [ "org.kde.haruna.desktop" ];
+          "video/x-ms-wmv" = [ "org.kde.haruna.desktop" ];
+          "video/x-flv" = [ "org.kde.haruna.desktop" ];
+          "video/3gpp" = [ "org.kde.haruna.desktop" ];
 
           # Web browsing / links.
           "x-scheme-handler/http" = [ "firefox.desktop" ];
