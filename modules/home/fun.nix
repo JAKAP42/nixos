@@ -20,6 +20,7 @@
         toipe # typing test
         lolcat
         cmatrix
+        (lib.lowPrio bsdgames)
         (symlinkJoin {
           name = "asciiquarium-transparent-wrapped";
           paths = [ asciiquarium-transparent ];
