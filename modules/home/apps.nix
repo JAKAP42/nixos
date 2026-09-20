@@ -9,9 +9,11 @@
     { pkgs, ... }:
     {
       home.packages = with pkgs; [
-        gimp        # image editing (photos, memes, adding text)
-        libresprite # pixel art / sprite editor for game art
-        switcheroo  # convert/resize images between formats (png, webp, avif, jxl...)
+        ffmpeg-full          # kdenlive shells out to this for transcode/proxy jobs
+        gimp                 # image editing (photos, memes, adding text)
+        kdePackages.kdenlive # video editing: trim, speed up/slow down, export
+        libresprite          # pixel art / sprite editor for game art
+        switcheroo           # convert/resize images between formats (png, webp, avif, jxl...)
       ];
     };
 }

@@ -123,8 +123,13 @@
               # unplayable if the recorder dies before writing its index. That
               # doesn't apply to GSR, which writes fragmented mp4 (see its
               # hybrid_fragmented movflags handling) and stays playable.
+              #
+              # -fm cfr: GSR defaults to vfr, whose jittery frame timestamps
+              # make Kdenlive treat recordings as variable frame rate — it
+              # prompts to transcode, and audio drifts if you decline. Costs
+              # nothing here; clips measured at exactly 60.000 fps either way.
               exec gpu-screen-recorder -w screen -f 60 -a default_output \
-                  -q very_high -bm qp -c mp4 -ac aac -o "$file"
+                  -q very_high -bm qp -c mp4 -ac aac -fm cfr -o "$file"
           fi
         '';
       };
