@@ -13,6 +13,7 @@
         gimp                 # image editing (photos, memes, adding text)
         kdePackages.kdenlive # video editing: trim, speed up/slow down, export
         libresprite          # pixel art / sprite editor for game art
+        signal-desktop       # encrypted messaging, linked to the phone app
         switcheroo           # convert/resize images between formats (png, webp, avif, jxl...)
       ];
     };
