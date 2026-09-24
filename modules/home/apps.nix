@@ -15,6 +15,7 @@
         libresprite          # pixel art / sprite editor for game art
         signal-desktop       # encrypted messaging, linked to the phone app
         switcheroo           # convert/resize images between formats (png, webp, avif, jxl...)
+        thunderbird          # email client
       ];
     };
 }
