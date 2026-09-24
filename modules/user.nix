@@ -52,6 +52,7 @@
           onenote
           onedrive
           mega
+          gdrive
           matlab
           torlink
         ];
