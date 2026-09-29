@@ -28,6 +28,7 @@ in
       kdeconnect
       gpu-screen-recorder
       protonvpn
+      flatpak
 
       # This machine's declarative disk layout + NVIDIA driver.
       disko

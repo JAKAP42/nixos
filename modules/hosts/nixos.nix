@@ -34,6 +34,7 @@ in
       kdeconnect
       gpu-screen-recorder
       protonvpn
+      flatpak
     ];
   };
 }
