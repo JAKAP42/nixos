@@ -29,6 +29,7 @@ in
       gpu-screen-recorder
       protonvpn
       flatpak
+      minecraft
 
       # This machine's declarative disk layout + NVIDIA driver.
       disko
