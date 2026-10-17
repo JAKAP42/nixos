@@ -7,6 +7,15 @@
       # Enable flakes + the new `nix` CLI permanently on the system.
       nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
+      # Nothing collects old generations on its own; keep 30 days of rollbacks.
+      nix.gc = {
+        automatic = true;
+        dates = "weekly";
+        options = "--delete-older-than 30d";
+      };
+
+      nix.optimise.automatic = true;
+
       # Bootloader.
       boot.loader.systemd-boot.enable = true;
       boot.loader.systemd-boot.configurationLimit = 10;
