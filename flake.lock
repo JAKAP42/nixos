@@ -313,8 +313,7 @@
         "import-tree": "import-tree",
         "nix-matlab": "nix-matlab",
         "nixpkgs": "nixpkgs",
-        "stylix": "stylix",
-        "torlink": "torlink"
+        "stylix": "stylix"
       }
     },
     "stylix": {
@@ -427,26 +426,6 @@
       "original": {
         "owner": "tinted-theming",
         "repo": "base16-zed",
-        "type": "github"
-      }
-    },
-    "torlink": {
-      "inputs": {
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1789761304,
-        "narHash": "sha256-283uQx0tOneGP3k19KnGL3mkb9SldTEI9HWmcsuJvNM=",
-        "owner": "baairon",
-        "repo": "torlink",
-        "rev": "eb25a516377171aead56a2ef7218e2b2110633a9",
-        "type": "github"
-      },
-      "original": {
-        "owner": "baairon",
-        "repo": "torlink",
         "type": "github"
       }
     }

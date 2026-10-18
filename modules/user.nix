@@ -54,7 +54,6 @@
           mega
           gdrive
           matlab
-          torlink
         ];
       };
     };

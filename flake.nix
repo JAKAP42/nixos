@@ -32,15 +32,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # torlink is a terminal torrent finder. Not in nixpkgs, so it comes from its
-    # own flake. Upstream's package.nix lags the npm releases (it still pins
-    # 1.4.1), so modules/home/torlink.nix overrides it up to the current tag --
-    # see the comment there before touching either side.
-    torlink = {
-      url = "github:baairon/torlink";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     # disko declares disk layout (partitions + filesystems) as data, so a
     # machine can be partitioned and formatted straight from this flake instead
     # of a hand-generated hardware-configuration.nix. Only hosts that import the
