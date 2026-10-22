@@ -35,6 +35,7 @@ in
       gpu-screen-recorder
       protonvpn
       flatpak
+      minecraft
     ];
   };
 }
